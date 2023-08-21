@@ -1,12 +1,14 @@
 #!/bin/bash
 
 INSTANCE_NAME="goapi"
+AWS_REGION="ap-south-1"  # Replace with your desired region
 
 # Check if an instance with the specified name already exists
 existing_instance_id=$(aws ec2 describe-instances \
   --filters "Name=tag:Name,Values=$INSTANCE_NAME" \
   --query "Reservations[].Instances[].InstanceId" \
-  --output text
+  --output text \
+  --region "$AWS_REGION"
 )
 
 if [ -n "$existing_instance_id" ]; then
@@ -19,7 +21,8 @@ else
     --key-name ssh \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]" \
     --query "Instances[0].InstanceId" \
-    --output text
+    --output text \
+    --region "$AWS_REGION"
   )
   
   echo "Instance $INSTANCE_NAME created with ID: $new_instance_id"
