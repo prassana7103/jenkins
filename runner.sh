@@ -19,6 +19,6 @@ response=$(curl -L \
  -H "X-GitHub-Api-Version: 2022-11-28" \
  "https://api.github.com/repos/prassana7103/Go-API/actions/runners/registration-token")
 token=$(echo "$(response)" | jq -r '.token')
-echo "Runner Token: $(token)"
-./config.sh --url https://github.com/prassana7103/Go-API --token $(token) &&
+echo "Runner Token: $token"
+./config.sh --url https://github.com/prassana7103/Go-API --token $token &&
 ./run.sh &"
