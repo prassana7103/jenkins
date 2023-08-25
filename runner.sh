@@ -13,7 +13,7 @@ ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@65.1.136.208 "
             export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true 
             curl -o actions-runner-linux-x64-2.308.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.308.0/actions-runner-linux-x64-2.308.0.tar.gz 
             tar xzf ./actions-runner-linux-x64-2.308.0.tar.gz
-            TOKEN=$(curl -s -L \
+            export TOKEN=$(curl -s -L \
                 -X POST \
                 -H "Accept: application/vnd.github.v3+json" \
                 -H "Authorization: Bearer $GITLAB_TOKEN" \
