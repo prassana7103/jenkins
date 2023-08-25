@@ -1,10 +1,10 @@
 #!/bin/bash
 
 cd /home/ec2-user 
-export VALUE="abcdef"
+
 ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@65.1.136.208 "
             set -x
-            echo $VALUE
+            
             sudo yum install git -y 
             ls 
             mkdir actions-runner && cd actions-runner 
@@ -16,7 +16,7 @@ ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@65.1.136.208 "
             TOKEN=$(curl -s -L \
                 -X POST \
                 -H "Accept: application/vnd.github.v3+json" \
-                -H "Authorization: Bearer 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" \
+                -H "Authorization: Bearer $GITLAB_TOKEN" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 "https://api.github.com/repos/prassana7103/Go-API/actions/runners/registration-token" | \
                 jq -r .token)
