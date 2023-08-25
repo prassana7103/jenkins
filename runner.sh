@@ -11,11 +11,10 @@ ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@65.1.136.208 "
             export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true 
             curl -o actions-runner-linux-x64-2.308.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.308.0/actions-runner-linux-x64-2.308.0.tar.gz 
             tar xzf ./actions-runner-linux-x64-2.308.0.tar.gz
-
             TOKEN=$(curl -s -L \
                 -X POST \
                 -H "Accept: application/vnd.github.v3+json" \
-                -H "Authorization: Bearer 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" \
+                -H "Authorization: Bearer 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" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 "https://api.github.com/repos/prassana7103/Go-API/actions/runners/registration-token" | \
                 jq -r .token)
