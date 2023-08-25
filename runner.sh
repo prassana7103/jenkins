@@ -1,8 +1,10 @@
 #!/bin/bash
 
 cd /home/ec2-user 
-ls 
+export VALUE="abcdef"
 ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@65.1.136.208 "
+            set -x
+            echo $VALUE
             sudo yum install git -y 
             ls 
             mkdir actions-runner && cd actions-runner 
@@ -18,7 +20,7 @@ ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@65.1.136.208 "
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 "https://api.github.com/repos/prassana7103/Go-API/actions/runners/registration-token" | \
                 jq -r .token)
-                echo $TOKEN
+                
             ./config.sh --url https://github.com/prassana7103/Go-API --token $TOKEN
             ./run.sh &
 "
