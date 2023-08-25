@@ -18,8 +18,7 @@ response=$(curl -L \
  -H "Authorization: Bearer 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" \
  -H "X-GitHub-Api-Version: 2022-11-28" \
  "https://api.github.com/repos/prassana7103/Go-API/actions/runners/registration-token")
-
 token=$(echo "$response" | jq -r '.token')
 echo "Runner Token: $token"
-./config.sh --url https://github.com/prassana7103/Go-API --token $token &&
+./config.sh --url https://github.com/prassana7103/Go-API --token $(token) &&
 ./run.sh &"
