@@ -12,16 +12,14 @@ ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@65.1.136.208 "
             curl -o actions-runner-linux-x64-2.308.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.308.0/actions-runner-linux-x64-2.308.0.tar.gz 
             tar xzf ./actions-runner-linux-x64-2.308.0.tar.gz
 
-            response=$(curl -L \
-            -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer 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" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "https://api.github.com/repos/prassana7103/Go-API/actions/runners/registration-token")
+            TOKEN=$(curl -s -L \
+                -X POST \
+                -H "Accept: application/vnd.github.v3+json" \
+                -H "Authorization: Bearer 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" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                "https://api.github.com/repos/prassana7103/Go-API/actions/runners/registration-token" | \
+                jq -r .token)
 
-            token=$(echo "$response" | jq -r '.token')
-            echo "Runner Token: $token"
-
-            ./config.sh --url https://github.com/prassana7103/Go-API --token $token
+            ./config.sh --url https://github.com/prassana7103/Go-API --token $TOKEN
             ./run.sh &
 "
