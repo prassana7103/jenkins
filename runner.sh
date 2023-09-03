@@ -2,7 +2,7 @@
 
 cd /home/ec2-user 
 
-ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@65.1.136.208 "
+ssh -o StrictHostKeyChecking=no -i ssh.pem ec2-user@13.127.23.202 "
 set -x
 sudo yum install git -y 
 ls 
