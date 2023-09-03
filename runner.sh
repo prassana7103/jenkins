@@ -7,5 +7,5 @@ set -x
 git clone https://github.com/prassana7103/jenkins.git
 cd jenkins 
 chmod +x abc.sh
-./abc.sh
+GITLAB_TOKEN=$GITLAB_TOKEN ./abc.sh
 "
