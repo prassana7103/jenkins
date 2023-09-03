@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -x
 sudo yum install git -y 
 ls 
