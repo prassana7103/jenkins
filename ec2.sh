@@ -10,6 +10,23 @@ existing_instance_id=$(aws ec2 describe-instances \
   --output text \
   --region "$AWS_REGION"
 )
+security_group_id=$(aws ec2 create-security-group \
+  --group-name MySecurityGroup \
+  --description "My Security Group" \
+  --region "$AWS_REGION" \
+  --output text
+)
+echo "New security group created with ID: $security_group_id"
+
+# Add inbound rules to the security group (e.g., SSH and HTTP)
+echo "Adding inbound rules to the security group..."
+aws ec2 authorize-security-group-ingress \
+  --group-id "$security_group_id" \
+  --protocol tcp \
+  --port $PORT \
+  --cidr 0.0.0.0/0 \
+  --region "$AWS_REGION"
+
 
 if [ -n "$existing_instance_id" ]; then
   echo "Instance $INSTANCE_NAME already exists with ID: $existing_instance_id"
@@ -44,6 +61,7 @@ else
       --image-id ami-0da59f1af71ea4ad2 \
       --instance-type t2.micro \
       --key-name ssh \
+      --security-group-ids "$security_group_id" \
       --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]" \
       --query "Instances[0].InstanceId" \
       --output text \
@@ -58,6 +76,7 @@ else
       --image-id ami-0da59f1af71ea4ad2 \
       --instance-type t2.micro \
       --key-name ssh \
+      --security-group-ids "$security_group_id" \
       --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]" \
       --query "Instances[0].InstanceId" \
       --output text \
