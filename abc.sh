@@ -2,7 +2,8 @@
 
 set -x
 sudo yum install git -y 
-ls 
+ls
+sudo rm -rf actions-runner 
 mkdir actions-runner && cd actions-runner 
 sudo yum install perl-Digest-SHA -y 
 sudo yum install libicu -y 
